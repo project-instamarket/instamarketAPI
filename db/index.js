@@ -9,7 +9,8 @@ import knexConfig from '../knexfile';
 
 const bookshelfInstance = bookshelf(knex(knexConfig));
 bookshelfInstance.plugin(bookshelfBcrypt);
-bookshelfInstance.plugin(bookshelfUuid);
+bookshelfInstance.plugin(bookshelfUuid, { type: 'v4' });
 bookshelfInstance.plugin(bookshelfCascadeDelete);
+bookshelfInstance.plugin('visibility');
 
 export default bookshelfInstance;
