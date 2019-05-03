@@ -1,5 +1,5 @@
-import dotenv from 'dotenv';
-import { getEnvVar } from 'env-utils';
+const dotenv = require('dotenv');
+const { getEnvVar } = require('env-utils');
 
 
 dotenv.config();
