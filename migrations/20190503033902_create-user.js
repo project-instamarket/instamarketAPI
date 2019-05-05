@@ -3,11 +3,12 @@ const tblName = 'users';
 const createTable = knex => knex.schema
   .createTable(tblName, (tbl) => {
     // PK
-    tbl.uuid('id').notNullable().primary();
+    tbl.increments();
     // other fields
     tbl.text('full_name').notNullable();
     tbl.text('username').notNullable();
-    tbl.text('email').notNullable().unique().comment('This is the email field');
+    tbl.text('instagram_id').unique().notNullable();
+    tbl.text('email').unique().comment('This is the email field');
     tbl.string('phone', 60).unique();
     tbl.text('profile_picture').notNullable();
     tbl.timestamps(false, true);

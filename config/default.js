@@ -16,7 +16,9 @@ module.exports = {
   },
 
   authentication: {
-    jwtSecret: lazyGetEnvVar('JWT_SECRET', { devDefault: 'loochloosa' }),
+    secret: lazyGetEnvVar('JWT_SECRET', { devDefault: 'loochloosa' }),
+    audience: lazyGetEnvVar('JWT_AUDIENCE', { devDefault: 'instamarket' }),
+    algo: lazyGetEnvVar('JWT_ALGO', { devDefault: 'HS512' }),
   },
 
   db: {
@@ -24,5 +26,12 @@ module.exports = {
     name: lazyGetEnvVar('DB_NAME'),
     password: lazyGetEnvVar('DB_PASSWORD'),
     user: lazyGetEnvVar('DB_USER'),
+  },
+
+  instagram: {
+    clientId: lazyGetEnvVar('IG_CLIENT_ID'),
+    clientSecret: lazyGetEnvVar('IG_CLIENT_SECRET'),
+    baseUrl: lazyGetEnvVar('IG_BASE_URL'),
+    redirectUri: lazyGetEnvVar('IG_REDIRECT_URI')
   }
 };

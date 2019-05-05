@@ -8,10 +8,6 @@ export default class Model extends db.Model {
     return 'product-orders';
   }
 
-  get uuid() {
-    return true;
-  }
-
   buyer = () => this.belongsTo(User);
 
   product = () => this.belongsTo(Product);

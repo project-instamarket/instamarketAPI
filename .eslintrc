@@ -12,6 +12,7 @@
     "allowImportExportEverywhere": true
  },
  "rules": {
-   "require-jsdoc": 0
+   "require-jsdoc": 0,
+   "babel/new-cap": 0
  }
 }

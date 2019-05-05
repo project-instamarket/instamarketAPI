@@ -3,10 +3,10 @@ const tblName = 'product-orders';
 const createTable = knex => knex.schema
   .createTable(tblName, (tbl) => {
     // PK
-    tbl.uuid('id').notNullable().primary();
+    tbl.increments();
     // other fields
-    tbl.uuid('user_id').references('id').inTable('users');
-    tbl.uuid('product_id').references('id').inTable('products');
+    tbl.integer('user_id').references('id').inTable('users');
+    tbl.integer('product_id').references('id').inTable('products');
     tbl.timestamps(false, true);
   });
 
