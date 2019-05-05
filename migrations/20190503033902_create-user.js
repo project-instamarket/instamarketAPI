@@ -10,7 +10,7 @@ const createTable = knex => knex.schema
     tbl.text('instagram_id').unique().notNullable();
     tbl.text('email').unique().comment('This is the email field');
     tbl.string('phone', 60).unique();
-    tbl.text('profile_picture').notNullable();
+    tbl.text('profile_picture');
     tbl.timestamps(false, true);
   });
 

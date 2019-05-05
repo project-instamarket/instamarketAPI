@@ -1,6 +1,9 @@
-import request from 'request';
+import request from 'request-promise';
 import config from 'lazy-config';
 import jwt from 'jsonwebtoken';
+
+// controllers
+import UserCtrl from './user.controller';
 
 // models
 import User from '../models/user.model';
@@ -10,9 +13,7 @@ import apiResponse from '../utils/apiResponse';
 
 
 const {
-  audience,
-  secret: jwtSecret,
-  algo: algorithm
+  audience, secret: jwtSecret, algo: algorithm
 } = config.authentication;
 const jwtConfig = {
   expiresIn: '24h',
@@ -24,9 +25,11 @@ const AuthCtrl = {
   async authenticate(req, res) {
     try {
       const { code, error } = req.body;
+
       if (error) {
         return apiResponse(res, 'succcess', 'done');
       }
+
       const { baseUrl: igBaseUrl, clientId, clientSecret, redirectUri } = config.instagram;
       const formData = {
         code,
@@ -35,30 +38,26 @@ const AuthCtrl = {
         grant_type: 'authorization_code',
         redirect_uri: redirectUri
       };
-      let response;
 
-      const { data } = await request.post(
-        igBaseUrl,
+      const options = {
+        uri: `${igBaseUrl}/oauth/access_token`,
         formData
-      );
-      response = data;
+      };
 
-      console.log(response);
+      const response = await request.post(options);
 
       const {
-        user: {
-          full_name, username, profile_picture // eslint-disable-line camelcase
-        }
+        user: { full_name, username, profile_picture, id: instagram_id }
       } = response;
-      const userDetails = { full_name, username, profile_picture };
+      const userDetails = { full_name, username, profile_picture, instagram_id };
       let newUser = new User(userDetails);
       const newUserInfo = await newUser.save();
       newUser = newUserInfo.toJSON();
 
+      const userInfo = await UserCtrl.findOrCreate(userDetails);
+
       return jwt.sign(
-        {
-          ...userDetails
-        },
+        userDetails,
         jwtSecret,
         jwtConfig,
         (err, token) => {
@@ -66,8 +65,8 @@ const AuthCtrl = {
             return apiResponse(res, 'error', err.message, 400);
           }
           return apiResponse(res, 'success', {
-            ...newUser,
-            token
+            token,
+            ...userInfo
           }, 200);
         });
     } catch (error) {
@@ -75,8 +74,9 @@ const AuthCtrl = {
         error.response.data.message : error.message;
       return apiResponse(
         res,
-        'failure',
-        message || 'Error calling the instagram API'
+        'error',
+        message || 'Error calling the instagram API',
+        400
       );
     }
   }

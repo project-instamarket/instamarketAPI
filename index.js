@@ -29,6 +29,7 @@ app.use((err, req, res, next) => {
   if (err.name === 'UnauthorizedError') {
     return next(apiResponse(res, 'error', err.message, 401));
   }
+  return next(apiResponse(res, 'error', err.message, 500));
 });
 
 app.listen(PORT, err => {
