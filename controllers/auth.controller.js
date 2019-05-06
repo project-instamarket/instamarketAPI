@@ -54,7 +54,7 @@ const AuthCtrl = {
       const newUserInfo = await newUser.save();
       newUser = newUserInfo.toJSON();
 
-      const userInfo = await UserCtrl.findOrCreate(userDetails);
+      await UserCtrl.findOrCreate(userDetails);
 
       return jwt.sign(
         userDetails,
@@ -64,20 +64,12 @@ const AuthCtrl = {
           if (err) {
             return apiResponse(res, 'error', err.message, 400);
           }
-          return apiResponse(res, 'success', {
-            token,
-            ...userInfo
-          }, 200);
+          return apiResponse(res, 'success', { token }, 200);
         });
     } catch (error) {
       const message = (error.response && error.response.data) ?
         error.response.data.message : error.message;
-      return apiResponse(
-        res,
-        'error',
-        message || 'Error calling the instagram API',
-        400
-      );
+      return apiResponse(res, 'error', message || 'Error calling the instagram API', 400);
     }
   }
 };
