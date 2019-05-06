@@ -2,6 +2,7 @@ import express from 'express';
 import config from 'lazy-config';
 import bodyParser from 'body-parser';
 import expressJwt from 'express-jwt';
+import cors from 'cors';
 
 import logger from './logger';
 import apiResponse from './utils/apiResponse';
@@ -14,6 +15,9 @@ const app = express();
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+// CORS config: https://expressjs.com/en/resources/middleware/cors.html
+app.options('*', cors());
+app.use(cors());
 
 const { app: { port: PORT } } = config;
 
