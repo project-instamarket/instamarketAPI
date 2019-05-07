@@ -5,9 +5,6 @@ import jwt from 'jsonwebtoken';
 // controllers
 import UserCtrl from './user.controller';
 
-// models
-import User from '../models/user.model';
-
 // utils
 import apiResponse from '../utils/apiResponse';
 
@@ -48,11 +45,8 @@ const AuthCtrl = {
 
       const {
         user: { full_name, username, profile_picture, id: instagram_id }
-      } = response;
+      } = JSON.parse(response);
       const userDetails = { full_name, username, profile_picture, instagram_id };
-      let newUser = new User(userDetails);
-      const newUserInfo = await newUser.save();
-      newUser = newUserInfo.toJSON();
 
       await UserCtrl.findOrCreate(userDetails);
 
