@@ -11,7 +11,6 @@ import { authSchema } from '../schemas/auth.schema';
 const router = Router();
 
 router.route('/')
-  .get((req, res) => res.send(req.query))
   .post(ExpressJoi(authSchema), AuthCtrl.authenticate);
 
 export default router;
