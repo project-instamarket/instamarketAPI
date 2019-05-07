@@ -16,10 +16,10 @@ const apiResponse = (res, status, data, responseCode = 200, meta = {}) => {
       ...meta
     };
 
-    return res.json(response).status(responseCode);
+    return res.status(responseCode).json(response);
   }
   responseCode = responseCode || 400;
-  return res.json({ status, message: data }).status(responseCode);
+  return res.status(responseCode).json({ status, message: data });
 };
 
 export default apiResponse;
