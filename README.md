@@ -1,5 +1,7 @@
 # InstamarketAPI
 
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/dd3e12fdc4a4cfe8b10c)
+
 ## SETUP
 
 * Install dependencies with the command
