@@ -44,11 +44,12 @@ const AuthCtrl = {
       const response = await request.post(options);
 
       const {
-        user: { full_name, username, profile_picture, id: instagram_id }
+        user: { full_name, username, profile_picture, id: instagram_id },
+        access_token
       } = JSON.parse(response);
       const userDetails = { full_name, username, profile_picture, instagram_id };
 
-      await UserCtrl.findOrCreate(userDetails);
+      await UserCtrl.findOrCreate({ ...userDetails, access_token });
 
       return jwt.sign(
         userDetails,
