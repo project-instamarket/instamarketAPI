@@ -2,7 +2,7 @@ import logger from '../logger';
 
 
 const apiResponse = (res, status, data, responseCode = 200, meta = {}) => {
-  const logMessage = `Response Code: ${responseCode} - message: ${JSON.stringify(data)}`;
+  const logMessage = `Response Code: ${responseCode}`;
   if ((responseCode !== 200 && responseCode !== 201)) {
     logger.error(logMessage);
   } else {

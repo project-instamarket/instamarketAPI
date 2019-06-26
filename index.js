@@ -10,6 +10,7 @@ import { unprotectedRoutes } from './utils/routes';
 
 // routes
 import authRoute from './routes/auth.route';
+import userRoute from './routes/user.route';
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use(expressJwt({
 
 app.get('/', (req, res) => apiResponse(res, 'success', 'Welcome to Instamarket!'));
 app.use('/auth', authRoute);
+app.use('/user', userRoute);
 
 app.use((err, req, res, next) => {
   if (err.name === 'UnauthorizedError') {

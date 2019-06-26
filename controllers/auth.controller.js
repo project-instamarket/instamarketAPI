@@ -24,7 +24,7 @@ const AuthCtrl = {
       const { code, error } = req.body;
 
       if (error) {
-        return apiResponse(res, 'succcess', 'done');
+        return apiResponse(res, 'error', 'Error authenticating user!');
       }
 
       const { baseUrl: igBaseUrl, clientId, clientSecret, redirectUri } = config.instagram;
