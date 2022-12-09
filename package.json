@@ -14,7 +14,7 @@
     "dotenv": "7.0.0",
     "env-utils": "2.2.1",
     "esm": "3.2.22",
-    "express": "4.16.4",
+    "express": "4.17.3",
     "express-joi-validator": "2.0.1",
     "express-jwt": "5.3.1",
     "joi": "14.3.1",
