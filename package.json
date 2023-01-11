@@ -19,7 +19,7 @@
     "express-jwt": "5.3.1",
     "joi": "14.3.1",
     "jsonwebtoken": "8.5.1",
-    "knex": "0.16.5",
+    "knex": "2.4.0",
     "lazy-config": "3.0.1",
     "ng-faker": "1.1.0",
     "pg": "7.10.0",
